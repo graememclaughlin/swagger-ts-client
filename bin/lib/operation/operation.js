@@ -10,14 +10,17 @@ class Operation {
         this.swOpr = swOpr;
         this.typeManager = typeManager;
         this.importedTypes = [];
-        this.operationName = settings_1.settings.operations.operationsNameTransformFn(url, httpVerb, swOpr);
-        this.groupName = settings_1.settings.operations.operationsGroupNameTransformFn(url, httpVerb, swOpr);
+        this.operationName = settings_1.settings.operations
+            .operationsNameTransformFn(url, httpVerb, swOpr);
+        this.groupName = settings_1.settings.operations
+            .operationsGroupNameTransformFn(url, httpVerb, swOpr);
         this.build();
     }
     build() {
         this.responsesType = this.getResponse();
         if (this.swOpr.parameters && this.swOpr.parameters.length) {
-            this.operationParams = this.swOpr.parameters.map((p) => this.buildParam(p));
+            this.operationParams = this.swOpr.parameters
+                .map((p) => this.buildParam(p));
         }
     }
     getResponse() {
@@ -49,10 +52,12 @@ class Operation {
             inBody: param.in === "body",
             inPath: param.in === "path",
             inQuery: param.in === "query",
+            optional: paramType.isOptional,
         };
     }
     addImportedType(typename) {
-        this.importedTypes = this.importedTypes.concat(typename.getComposingTypeNames(true));
+        this.importedTypes =
+            this.importedTypes.concat(typename.getComposingTypeNames(true));
     }
 }
 exports.Operation = Operation;
