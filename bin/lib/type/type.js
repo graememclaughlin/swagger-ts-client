@@ -24,7 +24,7 @@ class Type {
             propertyName,
             typeName: propertyType.fullTypeName,
             required: required ? "" : "?",
-            enumValue,
+            enumValue: enumValue,
         });
     }
 }
