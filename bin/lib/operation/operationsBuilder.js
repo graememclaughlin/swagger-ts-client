@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("../logger");
 const operation_1 = require("./operation");
-const httpVerbs = [
-    "get", "put", "post", "delete", "options", "head", "patch"
-];
+const httpVerbs = ["get", "put", "post", "delete", "options", "head", "patch"];
 class OperationsGroup {
     constructor(operationsGroupName) {
         this.operationsGroupName = operationsGroupName;
@@ -12,11 +10,11 @@ class OperationsGroup {
         this.importedTypes = [];
     }
     addImportedTypes(typenames) {
-        for (const tn of typenames) {
+        typenames.forEach((tn) => {
             if (!this.importedTypes.includes(tn)) {
                 this.importedTypes.push(tn);
             }
-        }
+        });
     }
 }
 class OperationsBuilder {
@@ -25,16 +23,6 @@ class OperationsBuilder {
         this.typeManager = typeManager;
         this.opsGroups = new Map();
         this.buildGroups();
-    }
-    getGroup(groupName) {
-        if (this.opsGroups.has(groupName)) {
-            return this.opsGroups.get(groupName);
-        }
-        else {
-            const group = new OperationsGroup(groupName);
-            this.opsGroups.set(groupName, group);
-            return group;
-        }
     }
     buildGroups() {
         logger_1.logger.info("Building Groups...");
@@ -53,6 +41,16 @@ class OperationsBuilder {
     }
     getAllGroups() {
         return [...this.opsGroups.values()];
+    }
+    getGroup(groupName) {
+        if (this.opsGroups.has(groupName)) {
+            return this.opsGroups.get(groupName);
+        }
+        else {
+            const group = new OperationsGroup(groupName);
+            this.opsGroups.set(groupName, group);
+            return group;
+        }
     }
 }
 exports.OperationsBuilder = OperationsBuilder;
